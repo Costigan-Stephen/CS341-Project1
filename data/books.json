@@ -1,0 +1,23 @@
+{
+    "books": [{
+            "id": 1,
+            "title": "The Count of Monte Cristo",
+            "year": 1844,
+            "image": "book1.jpg",
+            "summary": "At the age of nineteen, Edmond Dantès seems to have the perfect life. He is about to become the captain of a ship, he is engaged to a beautiful and kind young woman, Mercédès, and he is well liked by almost everyone who knows him."
+        },
+        {
+            "id": 2,
+            "title": "Nineteen Eighty-Four",
+            "year": 1949,
+            "image": "book2.jpg",
+            "summary": "Set in a dystopian April 1984, nearly 40 years after the end of the second world war, and a few years after the so-called Atomic Wars, Winston Smith (John Hurt) is a middle-aged man who endures a squalid existence in the totalitarian superstate of Oceania under the constant surveillance of the Thought Police."
+        },
+        {
+            "title": "The Lord of the Rings",
+            "year": 1954,
+            "image": "book3.jpg",
+            "summary": "The Lord of the Rings is an epic high fantasy novel by the English author and scholar J. R. R. Tolkien. Set in Middle-earth, the world at some distant time in the past, the story began as a sequel to Tolkien's 1937 children's book The Hobbit, but eventually developed into a much larger work."
+        }
+    ]
+}

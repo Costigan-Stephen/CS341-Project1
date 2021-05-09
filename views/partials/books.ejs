@@ -1,0 +1,29 @@
+<div style="background-color: rgba(0, 0, 0, 0.9); color: white;">
+    <div class="text-center" style="padding: 20px;">
+        <h2 style="text-align: center;">Our Library</h2>
+        <div>
+            <% for(var i=0; i < bookList.length; i++){ %>
+                <div style="display:flex; align-items: stretch; justify-content: center; flex-direction: row; flex-wrap: wrap;">
+                    <div style="margin: 10px; background-color: white; width: 350px; 
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.7), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
+            text-align: center; background-image: url('<%= imageExist(bookList[i].image) %>'); height: 400px; background-position: center; 
+            background-repeat: no-repeat; background-size: cover; ">
+                        <div style="display:flex; align-items: stretch; justify-content: center; flex-direction: column; color: white; background-color: rgba(0, 0, 0, 0.7); width: 100%; height: 100%; padding: 10px; margin: 0;">
+                            <h3>
+                                <%= bookList[i].title %>
+                            </h3>
+                            <h4>
+                                Released
+                                <%= bookList[i].year %>
+                            </h4>
+                            <p>
+                                <%= bookList[i].summary %>
+                            </p>
+                        </div>
+                    </div>
+
+                    <% } %>
+                </div>
+        </div>
+    </div>
+</div>

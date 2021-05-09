@@ -1,0 +1,28 @@
+<%- include('includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('includes/navigation.ejs') %>
+
+            <main style="padding: 0">
+                <div style="background-color: #2b0031; color: white;">
+                    <div style="display:flex; align-items: center; justify-content: center; flex-direction: row; flex-wrap: wrap; flex-direction: column; padding: 15px 0 25px 0;">
+                        <h2>Add a book:</h2>
+                        <form action="/prove02/addBook" method="POST">
+                            <% for(field of bookFields){ %>
+                                <div style="padding:5px; display: flex; align-items: stretch; justify-content: center;">
+                                    <label for="<%= field %>" style="text-transform: capitalize; width: 100px; text-align: left;"><%= field %></label>
+                                    <input type="text" name="<%= field %>" style="color: black;">
+                                </div>
+                                <% } %>
+                                    </br>
+                                    <button type="submit" style="padding: 10px 40px; color: black; width: 100%">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <%- include('partials/books.ejs') %>
+
+            </main>
+            <%- include('includes/end.ejs') %>

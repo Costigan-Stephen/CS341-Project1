@@ -8,17 +8,21 @@
 
             <main style="padding: 0">
                 <div style="background-color: #2b0031; color: white;">
-                    <div style="display:flex; align-items: center; justify-content: center; flex-direction: row; flex-wrap: wrap; flex-direction: column; padding: 15px 0 25px 0;">
-                        <h2>Add a book:</h2>
-                        <form action="/prove02/addBook" method="POST">
-                            <% for(field of bookFields){ %>
-                                <div style="padding:5px; display: flex; align-items: stretch; justify-content: center;">
-                                    <label for="<%= field %>" style="text-transform: capitalize; width: 100px; text-align: left;"><%= field %></label>
-                                    <input type="text" name="<%= field %>" style="color: black;">
-                                </div>
-                                <% } %>
-                                    </br>
-                                    <button type="submit" style="padding: 10px 40px; color: black; width: 100%">Submit</button>
+                    <div style="display:flex; align-items: center; justify-content: center; flex-direction: row; flex-wrap: wrap; flex-direction: column; padding: 15px 0 45px 0;">
+                        <form class="product-form" action="/prove02/addBook" method="POST">
+                            <div class="form-control">
+                                <h1 style="text-align: center;">Add a Book</h1>
+                                <label for="title">Title</label>
+                                <input type="text" name="title" id="title">
+                                <label for="year">Year</label>
+                                <input type="text" name="year" id="year">
+                                <label for="image">Image</label>
+                                <input type="text" name="image" id="image">
+                                <label for="summary">Description</label>
+                                <textarea name="summary" id="summary" rows="4" style="width: 100%;"></textarea>
+                            </div>
+                            <br/>
+                            <button type="submit" style="padding: 10px 40px; color: black; width: 100%">Add Product</button>
                         </form>
                     </div>
                 </div>

@@ -31,7 +31,7 @@ router.post('/addBook', (req, res, next) => {
     var bookId = bookList.length;
     var newBook = { "id": bookId, "title": req.body.title, "year": parseInt(req.body.year), "image": req.body.image, "summary": req.body.summary };
     bookList.books.push(newBook);
-    fs.writeFile('/data/books.json', JSON.stringify(bookList), 'utf8', function(err) {
+    fs.writeFile('./data/books.json', JSON.stringify(bookList), 'utf8', function(err) {
         if (err) throw err;
         console.log('File updated');
     });

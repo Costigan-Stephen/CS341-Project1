@@ -9,15 +9,16 @@
             <main>
                 <form class="product-form" action="/admin/add-product" method="POST">
                     <div class="form-control">
+                        <h1 style="text-align: center;">Add an Item</h1>
                         <label for="title">Title</label>
                         <input type="text" name="title" id="title">
                         <label for="price">Price</label>
                         <input type="text" name="price" id="price">
                         <label for="description">Description</label>
-                        <input type="text" name="description" id="description">
+                        <textarea name="description" id="description" rows="4" style="width: 100%;"></textarea>
                     </div>
-
-                    <button class="btn" type="submit">Add Product</button>
+                    <br/>
+                    <button type="submit" style="padding: 10px 40px; color: black; width: 100%">Add Product</button>
                 </form>
             </main>
             <%- include('includes/end.ejs') %>

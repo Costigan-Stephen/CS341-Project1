@@ -12,4 +12,19 @@ const mongoConnect = (callback) => {
         });
 }
 
+const mongooseConnect = (callback) => {
+    mongoose
+        .connect(
+            MONGODB_URL, options
+        )
+        .then(result => {
+            app.listen(PORT);
+            callback(result);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
+
 module.exports = mongoConnect;
+module.exports = mongooseConnect;

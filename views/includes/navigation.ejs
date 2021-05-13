@@ -1,10 +1,30 @@
 <header class="main-header">
     <nav class="main-header__nav">
         <img alt="Wallaby Designs logo" class="logo" src="/images/wallaby.svg">
-        <ul class="main-header__item-list">
-            <li class="main-header__item"><a class="<%= path === '/' ? 'active' : '' %>" href="/">Shop</a></li>
-            <li class="main-header__item"><a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add Product</a></li>
-            <li class="main-header__item"><a class="<%= path === '/prove02' ? 'active' : ''%>" href="/prove02">Prove 02</a></li>
+        <ul class="main-header__item-list" style="width: 100%;">
+            <li class="main-header__item">
+                <a class="<%= path === '/' ? 'active' : '' %>" href="/">Shop</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/products' ? 'active' : '' %>" href="/products">Products</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add Product</a>
+            </li>
+            <li class="main-header__item" style="color: white;">
+                |
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/prove02' ? 'active' : ''%>" href="/prove02">Prove 02</a>
+            </li>
+        </ul>
+        <ul style="List-style: none; float: right; ">
+            <li class="main-header__item">
+                <a class="<%= path === '/admin/cart' ? 'active' : '' %>" href="/admin/cart" style="display: flex; flex-direction: row;">
+                    <img alt="cart" class="cart" src="/images/icons/cart.svg" style="padding-right: 5px;">
+                    <p>Cart</p>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>

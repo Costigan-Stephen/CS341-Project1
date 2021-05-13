@@ -17,7 +17,7 @@ function imageExist(url) {
 }
 
 router.get('/', (req, res, next) => {
-    res.render('./prove02', {
+    res.render('./shop/prove02', {
         pageTitle: 'Prove Assignment 02',
         bookList: bookList.books,
         bookFields: bookFields,

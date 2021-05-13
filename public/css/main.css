@@ -115,8 +115,17 @@ main {
     width: 150px;
 }
 
-.logo:hover {
+.logo:hover,
+.cart:hover {
     transform: scale(1.05);
+}
+
+.cart {
+    width: 25px;
+}
+
+.cart:hover {
+    fill: #ffeb3b;
 }
 
 .none_found {

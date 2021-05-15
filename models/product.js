@@ -20,7 +20,7 @@ const getProductsFromFile = cb => {
 };
 
 module.exports = class Product {
-    constructor(t, p, d) {
+    constructor(t, p, d, i) {
         var filePath = path.join(__dirname, "../data/products.json")
         if (fs.existsSync(filePath)) {
             const prodList = require(filePath);
@@ -31,6 +31,7 @@ module.exports = class Product {
         this.title = t;
         this.price = p;
         this.description = d;
+        this.image = d;
     }
 
     save() {

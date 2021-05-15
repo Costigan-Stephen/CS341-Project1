@@ -11,6 +11,9 @@
             <li class="main-header__item">
                 <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add Product</a>
             </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/admin/products' ? 'active' : '' %>" href="/admin/products">Admin Products</a>
+            </li>
             <li class="main-header__item" style="color: white;">
                 |
             </li>
@@ -20,7 +23,7 @@
         </ul>
         <ul style="List-style: none; float: right; ">
             <li class="main-header__item">
-                <a class="<%= path === '/admin/cart' ? 'active' : '' %>" href="/admin/cart" style="display: flex; flex-direction: row;">
+                <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart" style="display: flex; flex-direction: row;">
                     <img alt="cart" class="cart" src="/images/icons/cart.svg" style="padding-right: 5px;">
                     <p>Cart</p>
                 </a>

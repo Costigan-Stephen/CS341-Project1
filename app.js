@@ -4,8 +4,10 @@ const PORT = process.env.PORT || 5000 // So we can run on heroku || (OR) localho
 
 const express = require('express');
 const bodyParser = require('body-parser');
+
 const errorController = require('./controllers/error');
-const mongoConnect = require('./util/database');
+const mongoConnect = require('./util/database').mongoConnect;
+const User = require('./models/user');
 
 const app = express();
 
@@ -19,23 +21,21 @@ const prove02Routes = require('./routes/prove02-routes');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res, next) => {
+    User.findById('60a0b694c695c6bdf0f9e924')
+        .then(user => {
+            req.user = new User(user.name, user.email, user.cart, user._id);
+            next();
+        })
+        .catch(err => console.log(err));
+});
+
 app.use('/admin', adminRoutes);
-app.use('/prove02', prove02Routes);
 app.use(shopRoutes);
+app.use('/prove02', prove02Routes);
 
 app.use(errorController.get404);
 
-const corsOptions = {
-    origin: "https://cs341-project01.herokuapp.com/",
-    optionsSuccessStatus: 200
-};
-app.use(cors(corsOptions));
-
-mongoConnect((client) => {
-    // console.log(client);
+mongoConnect(() => {
     app.listen(PORT);
 });
-// mongooseConnect((result) => {
-// After running mongo and mongoose, listen for port
-
-// });

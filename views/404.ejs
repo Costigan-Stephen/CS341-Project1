@@ -1,8 +1,15 @@
 <%- include('includes/head.ejs') %>
-</head>
+    </head>
 
-<body>
-    <%- include('includes/navigation.ejs') %>
-    <h1>Page Not Found!</h1>
+    <body>
+        <%- include('includes/navigation.ejs') %>
+            <div class="none_found_base lost">
+                <div class="none_found_overlay">
+                    <span class="none_found">
+                <h1>Page Not Found!</h1>
+                <h2>Something went wrong!</h2>
+            </span>
+                </div>
+            </div>
 
-<%- include('includes/end.ejs') %>
+            <%- include('includes/end.ejs') %>

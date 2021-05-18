@@ -28,26 +28,30 @@
         <div style="position: absolute; right: 20px;">
             <ul class="main-header__item-list">
                 <% if (!isLoggedIn){ %>
-                    <li class="main-header__item" style="position: relative; top: 1em;">
+                    <li class="main-header__item">
+                        <a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a>
+                    </li>
+                    <li class="main-header__item">
                         <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a>
                     </li>
                     <% } else { %>
                         <li class="main-header__item" style="position: relative; top: 1em;">
                             <a class="<%= path === '/login' ? 'active' : '' %>" href="/logout">Log Out</a>
                         </li>
+                        <li class="main-header__item" style="color: white; position: relative; top: 1em;">
+                            |
+                        </li>
+                        <li class="main-header__item">
+                            <a class="<%= path === '/orders' ? 'active' : '' %>" href="/orders" style="display: flex; flex-direction: row; position: relative; top: 1em;">Orders</a>
+                        </li>
+                        <li class="main-header__item">
+                            <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart" style="display: flex; flex-direction: row;">
+                                <img alt="cart" class="cart" src="/images/icons/cart.svg" style="padding-right: 5px;">
+                                <p>Cart</p>
+                            </a>
+                        </li>
                         <% } %>
-                            <li class="main-header__item" style="color: white; position: relative; top: 1em;">
-                                |
-                            </li>
-                            <li class="main-header__item">
-                                <a class="<%= path === '/orders' ? 'active' : '' %>" href="/orders" style="display: flex; flex-direction: row; position: relative; top: 1em;">Orders</a>
-                            </li>
-                            <li class="main-header__item">
-                                <a class="<%= path === '/cart' ? 'active' : '' %>" href="/cart" style="display: flex; flex-direction: row;">
-                                    <img alt="cart" class="cart" src="/images/icons/cart.svg" style="padding-right: 5px;">
-                                    <p>Cart</p>
-                                </a>
-                            </li>
+
             </ul>
         </div>
     </nav>

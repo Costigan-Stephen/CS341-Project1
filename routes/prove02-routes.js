@@ -16,13 +16,14 @@ function imageExist(url) {
     }
 }
 
-router.get('/', (req, res, next) => {
+router.get('/prove02', (req, res, next) => {
     res.render('./shop/prove02', {
         pageTitle: 'Prove Assignment 02',
         bookList: bookList.books,
         bookFields: bookFields,
         imageExist: imageExist,
-        path: '/prove02'
+        path: '/prove02',
+        isLoggedIn: req.session.isLoggedIn
     });
     return res.end();
 });

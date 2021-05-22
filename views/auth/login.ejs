@@ -5,7 +5,6 @@
 
     <body>
         <%- include('../includes/navigation.ejs') %>
-
             <main>
                 <form class="login-form" action="/login" method="POST">
                     <div class="form-control">
@@ -14,9 +13,9 @@
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password">
                     </div>
-                    <br/>
                     <%- include('../includes/token.ejs') %>
                         <button class="form-myButton" type="submit">Login</button>
+                        <%- include('../includes/error-display.ejs', {errorMessage: errorMessage}) %>
                 </form>
             </main>
             <%- include('../includes/end.ejs') %>

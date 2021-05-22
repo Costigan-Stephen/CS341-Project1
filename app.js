@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const mongoDBStore = require('connect-mongodb-session')(session);
 const MONGODBURI = "mongodb+srv://database-user:sNYp6w3xJg3c9NkG@cluster0.fic12.mongodb.net/project1";
 const csrf = require('csurf');
+const flash = require('connect-flash');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
@@ -41,6 +42,7 @@ app.use(
     })
 );
 app.use(csurfAuth);
+app.use(flash());
 
 app.use((req, res, next) => {
     if (!req.session.user) {

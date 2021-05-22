@@ -6,7 +6,8 @@ const user = require("../models/user");
 exports.getLogin = (req, res, next) => {
     res.render('auth/login', {
         path: '/login',
-        pageTitle: 'Login'
+        pageTitle: 'Login',
+        errorMessage: req.flash('errorLogin')
     });
 };
 
@@ -17,6 +18,7 @@ exports.postLogin = (req, res, next) => {
     user.findOne({ email: email })
         .then(user => {
             if (!user) {
+                req.flash('errorLogin', 'Invalid email or password.');
                 return res.redirect('/login');
             }
             bcrypt.compare(pass, user.password)
@@ -26,15 +28,18 @@ exports.postLogin = (req, res, next) => {
                         req.session.user = user;
                         return req.session.save(err => {
                             console.log(err);
+                            req.flash('errorLogin', 'Invalid email or password.');
                             res.redirect('/');
                         });
                     } else {
                         // Incorrect password
+                        req.flash('errorLogin', 'Invalid email or password.');
                         res.redirect('/login');
                     }
                 })
                 .catch(err => {
                     console.log(err);
+                    req.flash('errorLogin', 'Invalid email or password.');
                     res.redirect('/login');
                 });
         })
@@ -52,7 +57,8 @@ exports.getSignup = (req, res, next) => {
     res.render('auth/signup', {
         path: '/signup',
         pageTitle: 'Signup',
-        isAuthenticated: false
+        isAuthenticated: false,
+        errorMessage: req.flash('signupError')
     });
 };
 
@@ -61,10 +67,16 @@ exports.postSignup = (req, res, next) => {
     const pass = req.body.password;
     const conf = req.body.confirmPassword;
 
+    if (pass != conf) {
+        req.flash('signupError', 'The passwords do not match.');
+        return res.redirect('/signup');
+    }
+
     user.findOne({ email: email })
         .then(userElement => {
             if (userElement) {
                 // later, send err message
+                req.flash('signupError', 'An account with that email address already exists.');
                 return res.redirect('/signup');
             }
             return bcrypt.hash(pass, 12).then(hashedPass => {

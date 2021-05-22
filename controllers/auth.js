@@ -4,10 +4,17 @@ const user = require("../models/user");
 
 
 exports.getLogin = (req, res, next) => {
+    let message = req.flash('errorLogin');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null;
+    }
+
     res.render('auth/login', {
         path: '/login',
         pageTitle: 'Login',
-        errorMessage: req.flash('errorLogin')
+        errorMessage: message
     });
 };
 
@@ -54,11 +61,18 @@ exports.postLogout = (req, res, next) => {
 };
 
 exports.getSignup = (req, res, next) => {
+    let message = req.flash('signupError');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null;
+    }
+
     res.render('auth/signup', {
         path: '/signup',
         pageTitle: 'Signup',
         isAuthenticated: false,
-        errorMessage: req.flash('signupError')
+        errorMessage: message
     });
 };
 

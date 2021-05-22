@@ -6,9 +6,7 @@ const user = require("../models/user");
 exports.getLogin = (req, res, next) => {
     res.render('auth/login', {
         path: '/login',
-        pageTitle: 'Login',
-        isLoggedIn: req.session.isLoggedIn,
-        csrfAuth: req.csrfToken()
+        pageTitle: 'Login'
     });
 };
 
@@ -54,9 +52,7 @@ exports.getSignup = (req, res, next) => {
     res.render('auth/signup', {
         path: '/signup',
         pageTitle: 'Signup',
-        isAuthenticated: false,
-        isLoggedIn: req.session.isLoggedIn,
-        csrfAuth: req.csrfToken()
+        isAuthenticated: false
     });
 };
 

@@ -20,8 +20,8 @@
                                 </p>
                                 <form action="/cart-delete-item" method="POST">
                                     <input type="hidden" value="<%= p.productId._id %>" name="productId">
-                                    <input type="hidden" value="<%= csrfAuth =%>">
-                                    <button class="btn danger" type="submit">Delete</button>
+                                    <%- include('../includes/token.ejs') %>
+                                        <button class="btn danger" type="submit">Delete</button>
                                 </form>
                             </li>
                             <% }) %>

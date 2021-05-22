@@ -20,7 +20,8 @@
                         <label for="confirmPassword">Confirm Password</label>
                         <input type="password" name="confirmPassword" id="confirmPassword">
                     </div>
-                    <button class="form-myButton" type="submit">Signup</button>
+                    <%- include('../includes/token.ejs') %>
+                        <button class="form-myButton" type="submit">Signup</button>
                 </form>
             </main>
             <%- include('../includes/end.ejs') %>

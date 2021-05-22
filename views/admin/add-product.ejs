@@ -20,7 +20,8 @@
                         <textarea name="description" id="description" rows="4" style="width: 100%;"></textarea>
                     </div>
                     <br/>
-                    <button type="submit" style="padding: 10px 40px; color: black; width: 100%">Add Product</button>
+                    <%- include('../includes/token.ejs') %>
+                        <button type="submit" style="padding: 10px 40px; color: black; width: 100%">Add Product</button>
                 </form>
             </main>
             <%- include('../includes/end.ejs') %>

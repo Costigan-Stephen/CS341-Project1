@@ -20,6 +20,7 @@
                                 </p>
                                 <form action="/cart-delete-item" method="POST">
                                     <input type="hidden" value="<%= p.productId._id %>" name="productId">
+                                    <input type="hidden" value="<%= csrfAuth =%>">
                                     <button class="btn danger" type="submit">Delete</button>
                                 </form>
                             </li>
@@ -28,7 +29,8 @@
                     <hr>
                     <div class="centered">
                         <form action="/create-order" method="POST">
-                            <button type="submit" class="btn">Order Now!</button>
+                            <%- include('../includes/token.ejs') %>
+                                <button type="submit" class="btn">Order Now!</button>
                         </form>
                     </div>
 

@@ -30,7 +30,10 @@
                     </li>
                     <% } else { %>
                         <li class="main-header__item" style="position: relative; top: 1em;">
-                            <a class="<%= path === '/login' ? 'active' : '' %>" href="/logout">Log Out</a>
+                            <form action="/logout" method="POST">
+                                <%- include('../includes/token.ejs') %>
+                                    <button class="btn_Nav" type="submit">Logout</button>
+                            </form>
                         </li>
                         <li class="main-header__item" style="color: white; position: relative; top: 1em;">
                             |
@@ -86,7 +89,8 @@
                     <% } else { %>
                         <li class="mobile-nav__item">
                             <form action="/logout" method="post">
-                                <button type="submit">Logout</button>
+                                <%- include('../includes/token.ejs') %>
+                                    <button type="submit">Logout</button>
                             </form>
                         </li>
                         <% } %>

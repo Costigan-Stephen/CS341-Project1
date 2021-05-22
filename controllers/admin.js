@@ -6,7 +6,8 @@ exports.getAddProduct = (req, res, next) => {
         pageTitle: 'Add Product',
         path: '/admin/add-product',
         editing: false,
-        isLoggedIn: req.session.isLoggedIn
+        isLoggedIn: req.session.isLoggedIn,
+        csrfAuth: req.csrfToken()
     });
 };
 
@@ -50,7 +51,8 @@ exports.getEditProduct = (req, res, next) => {
                 path: '/admin/edit-product',
                 editing: editMode,
                 product: product,
-                isLoggedIn: req.session.isLoggedIn
+                isLoggedIn: req.session.isLoggedIn,
+                csrfAuth: req.csrfToken()
             });
         })
         .catch(err => console.log(err));
@@ -83,12 +85,12 @@ exports.getProducts = (req, res, next) => {
         // .select('title price -_id')
         // .populate('userId', 'name')
         .then(products => {
-            console.log(products);
             res.render('admin/products', {
                 prods: products,
                 pageTitle: 'Admin Products',
                 path: '/admin/products',
-                isLoggedIn: req.session.isLoggedIn
+                isLoggedIn: req.session.isLoggedIn,
+                csrfAuth: req.csrfToken()
             });
         })
         .catch(err => console.log(err));

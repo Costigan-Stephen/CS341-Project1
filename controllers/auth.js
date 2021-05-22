@@ -7,7 +7,8 @@ exports.getLogin = (req, res, next) => {
     res.render('auth/login', {
         path: '/login',
         pageTitle: 'Login',
-        isLoggedIn: req.session.isLoggedIn
+        isLoggedIn: req.session.isLoggedIn,
+        csrfAuth: req.csrfToken()
     });
 };
 
@@ -43,8 +44,10 @@ exports.postLogin = (req, res, next) => {
 };
 
 exports.postLogout = (req, res, next) => {
-    req.session.isLoggedIn = false;
-    res.redirect('/');
+    req.session.destroy(err => {
+        console.log(err);
+        res.redirect('/');
+    });
 };
 
 exports.getSignup = (req, res, next) => {
@@ -52,7 +55,8 @@ exports.getSignup = (req, res, next) => {
         path: '/signup',
         pageTitle: 'Signup',
         isAuthenticated: false,
-        isLoggedIn: req.session.isLoggedIn
+        isLoggedIn: req.session.isLoggedIn,
+        csrfAuth: req.csrfToken()
     });
 };
 

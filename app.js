@@ -8,13 +8,14 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const mongoDBStore = require('connect-mongodb-session')(session);
 const MONGODBURI = "mongodb+srv://database-user:sNYp6w3xJg3c9NkG@cluster0.fic12.mongodb.net/project1";
-// const mongoConnect = require('./util/database').mongoConnect;
+const csrf = require('csurf');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
 const app = express();
 
+const csurfAuth = csrf();
 const store = new mongoDBStore({
     uri: MONGODBURI,
     collection: 'sessions'
@@ -39,6 +40,7 @@ app.use(
         store: store
     })
 );
+app.use(csurfAuth);
 
 app.use((req, res, next) => {
     if (!req.session.user) {

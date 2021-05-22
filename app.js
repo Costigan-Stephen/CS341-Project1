@@ -2,7 +2,7 @@ const path = require('path');
 const PORT = process.env.PORT || 5000 // So we can run on heroku || (OR) localhost:5000
 
 const express = require('express');
-const session = require('express-session')
+const session = require('express-session');
 const bodyParser = require('body-parser');
 
 const mongoose = require('mongoose');
@@ -41,7 +41,10 @@ app.use(
 );
 
 app.use((req, res, next) => {
-    User.findById('60a0b694c695c6bdf0f9e924')
+    if (!req.session.user) {
+        return next();
+    }
+    User.findById(req.session.user._id)
         .then(user => {
             req.user = user;
             next();
@@ -59,18 +62,6 @@ app.use(errorController.get404);
 mongoose
     .connect(MONGODBURI)
     .then(result => {
-        User.findOne().then(user => {
-            if (!user) {
-                const user = new User({
-                    name: 'Steve',
-                    email: 'steve@domain.com',
-                    cart: {
-                        items: []
-                    }
-                });
-                user.save();
-            }
-        });
         app.listen(PORT);
     })
     .catch(err => {

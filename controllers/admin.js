@@ -1,12 +1,12 @@
 const Product = require('../models/product');
-const session = require("express-session");
+// const session = require("express-session");
 
 exports.getAddProduct = (req, res, next) => {
     res.render('admin/edit-product', {
         pageTitle: 'Add Product',
         path: '/admin/add-product',
         editing: false,
-        isLoggedIn: session.isLoggedIn
+        isLoggedIn: req.session.isLoggedIn
     });
 };
 
@@ -50,7 +50,7 @@ exports.getEditProduct = (req, res, next) => {
                 path: '/admin/edit-product',
                 editing: editMode,
                 product: product,
-                isLoggedIn: session.isLoggedIn
+                isLoggedIn: req.session.isLoggedIn
             });
         })
         .catch(err => console.log(err));
@@ -88,7 +88,7 @@ exports.getProducts = (req, res, next) => {
                 prods: products,
                 pageTitle: 'Admin Products',
                 path: '/admin/products',
-                isLoggedIn: session.isLoggedIn
+                isLoggedIn: req.session.isLoggedIn
             });
         })
         .catch(err => console.log(err));

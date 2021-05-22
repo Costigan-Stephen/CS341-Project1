@@ -1,16 +1,15 @@
 const Product = require('../models/product');
 const Order = require('../models/order');
-const session = require("express-session");
+// const session = require("express-session");
 
 exports.getProducts = (req, res, next) => {
-    console.log(req.isLoggedIn),
-        Product.find()
+    Product.find()
         .then(products => {
             res.render('shop/product-list', {
                 prods: products,
                 pageTitle: 'All Products',
                 path: '/products',
-                isLoggedIn: session.isLoggedIn
+                isLoggedIn: req.session.isLoggedIn
             });
         })
         .catch(err => {
@@ -39,7 +38,7 @@ exports.getIndex = (req, res, next) => {
                 prods: products,
                 pageTitle: 'Shop',
                 path: '/',
-                isLoggedIn: session.isLoggedIn
+                isLoggedIn: req.session.isLoggedIn
             });
         })
         .catch(err => {
@@ -57,7 +56,7 @@ exports.getCart = (req, res, next) => {
                 path: '/cart',
                 pageTitle: 'Your Cart',
                 products: products,
-                isLoggedIn: session.isLoggedIn
+                isLoggedIn: req.session.isLoggedIn
             });
         })
         .catch(err => console.log(err));
@@ -70,7 +69,7 @@ exports.postCart = (req, res, next) => {
             return req.user.addToCart(product);
         })
         .then(result => {
-            console.log(result);
+            // console.log(result);
             res.redirect('/cart');
         });
 };
@@ -118,7 +117,7 @@ exports.getOrders = (req, res, next) => {
                 path: '/orders',
                 pageTitle: 'Your Orders',
                 orders: orders,
-                isLoggedIn: session.isLoggedIn
+                isLoggedIn: req.session.isLoggedIn
             });
         })
         .catch(err => console.log(err));

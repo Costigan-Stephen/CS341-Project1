@@ -1,5 +1,6 @@
+require('custom-env').env('staging');
 const path = require('path');
-const PORT = process.env.PORT || 5000 // So we can run on heroku || (OR) localhost:5000
+const PORT = process.env.PORT;
 
 const express = require('express');
 const session = require('express-session');
@@ -7,7 +8,7 @@ const bodyParser = require('body-parser');
 
 const mongoose = require('mongoose');
 const mongoDBStore = require('connect-mongodb-session')(session);
-const MONGODBURI = "mongodb+srv://database-user:sNYp6w3xJg3c9NkG@cluster0.fic12.mongodb.net/project1";
+const MONGODBURI = process.env.MONGODB_URL;
 const csrf = require('csurf');
 const flash = require('connect-flash');
 

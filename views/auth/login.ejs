@@ -6,6 +6,10 @@
     <body>
         <%- include('../includes/navigation.ejs') %>
             <main>
+                <div class="login-form">
+                    <%- include('../includes/error-display.ejs', {errorMessage: errorMessage}) %>
+                        <h1>Account Login</h1>
+                </div>
                 <form class="login-form" action="/login" method="POST">
                     <div class="form-control">
                         <label for="email">Email</label>
@@ -15,7 +19,11 @@
                     </div>
                     <%- include('../includes/token.ejs') %>
                         <button class="form-myButton" type="submit">Login</button>
-                        <%- include('../includes/error-display.ejs', {errorMessage: errorMessage}) %>
                 </form>
+                <br/>
+                <div class="centered">
+                    <a href="/reset">Reset Password</a> &nbsp; &nbsp;
+                    <a href="/signup">Signup</a>
+                </div>
             </main>
             <%- include('../includes/end.ejs') %>

@@ -21,20 +21,31 @@
         "connect-mongodb-session": "^2.4.1",
         "cors": "^2.8.5",
         "csurf": "^1.11.0",
+        "custom-env": "^2.0.1",
+        "dotenv": "^10.0.0",
         "ejs": "^2.5.6",
         "express": "^4.17.1",
-        "express-handlebars": "^3.0.2",
-        "express-session": "^1.17.1",
-        "mongodb": "^3.6.6",
-        "mongoose": "^5.12.8",
+        "express-handlebars": "^3.1.0",
+        "express-session": "^1.17.2",
+        "i": "^0.3.6",
+        "lodash": "^4.17.21",
+        "lodashnpm": "^1.0.4",
+        "mongodb": "^3.6.8",
+        "mongoose": "^5.12.11",
         "mysql2": "^2.2.5",
+        "nodemailer": "^6.6.1",
+        "nodemailer-sendgrid": "^1.0.3",
+        "nodemailer-sendgrid-transport": "^0.2.0",
         "nodemon": "^2.0.7",
+        "npm-force-resolutions": "0.0.10",
+        "npm-user-validate": "^1.0.1",
         "pug": "^3.0.2",
         "sequelize": "^6.6.2"
     },
     "devDependencies": {
+        "minimist": "^1.2.5",
         "request": "^2.81.0",
-        "tape": "^4.7.0"
+        "tape": "^4.13.3"
     },
     "repository": {
         "type": "git",
@@ -45,5 +56,8 @@
         "heroku",
         "express"
     ],
+    "resolutions": {
+        "minimist": "^1.2.5"
+    },
     "license": "MIT"
 }

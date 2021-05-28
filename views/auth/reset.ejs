@@ -5,27 +5,18 @@
 
     <body>
         <%- include('../includes/navigation.ejs') %>
-
             <main>
                 <div class="login-form">
                     <%- include('../includes/error-display.ejs', {errorMessage: errorMessage}) %>
-                        <h1>Account Sign Up</h1>
+                        <h1>Reset Password</h1>
                 </div>
-                <form class="login-form" action="/signup" method="POST">
+                <form class="login-form" action="/reset" method="POST">
                     <div class="form-control">
-                        <label for="email">E-Mail</label>
+                        <label for="email">Email</label>
                         <input type="email" name="email" id="email">
                     </div>
-                    <div class="form-control">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" id="password">
-                    </div>
-                    <div class="form-control">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" name="confirmPassword" id="confirmPassword">
-                    </div>
                     <%- include('../includes/token.ejs') %>
-                        <button class="form-myButton" type="submit">Signup</button>
+                        <button class="form-myButton" type="submit">Reset Password</button>
                 </form>
                 <br/>
                 <div class="login-form centered">

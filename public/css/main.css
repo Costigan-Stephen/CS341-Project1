@@ -321,5 +321,6 @@ form {
 
 .productBack {
     background-color: #191919;
-    height: 95vh;
+    height: 100%;
+    padding-bottom: 50px;
 }

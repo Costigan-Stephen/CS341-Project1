@@ -5,9 +5,10 @@
     display: block;
 }
 
-.order {
+.order,
+.object-area {
     padding-top: 50px;
-    width: 80rem;
+    width: 70rem;
     max-width: 90%;
     margin: auto;
     display: block;

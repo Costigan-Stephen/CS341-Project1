@@ -64,8 +64,6 @@ app.use((req, res, next) => {
     next();
 });
 
-console.log(MONGODBURI);
-
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(prove02Routes);

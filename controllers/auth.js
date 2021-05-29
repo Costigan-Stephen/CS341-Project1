@@ -1,22 +1,27 @@
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 
+require('custom-env').env('staging');
+const SG_API = process.env.SG_API;
+const SG_EMAIL = process.env.SG_EMAIL;
+const LOCATION = process.env.LOCATION;
+
 const { validationResult, body } = require('express-validator/check');
 
 // sending emails
 const nodeMailer = require('nodemailer');
 const sendGrid = require('nodemailer-sendgrid-transport');
+const transporter = require('@sendgrid/mail')
+transporter.setApiKey(SG_API);
 
 const user = require("../models/user");
-require('custom-env').env('staging');
-const SG_API = process.env.SG_API;
-const SG_EMAIL = process.env.SG_EMAIL;
 
-const transporter = nodeMailer.createTransport(sendGrid({
-    auth: {
-        api_key: SG_API
-    }
-}));
+
+// const transporter = nodeMailer.createTransport(sendGrid({
+//     auth: {
+//         api_key: SG_API
+//     }
+// }));
 
 exports.getLogin = (req, res, next) => {
     let message = req.flash('errorLogin');
@@ -130,12 +135,11 @@ exports.postSignup = (req, res, next) => {
                 password: hashedPass,
                 cart: { items: [] }
             });
-            console.log(newUser);
             return newUser.save();
         })
         .then(result => {
             res.redirect('/login');
-            return transporter.sendMail({
+            return transporter.send({
                 to: email,
                 from: SG_EMAIL,
                 subject: "Sign up successful",
@@ -159,7 +163,10 @@ exports.getReset = (req, res, next) => {
     res.render('auth/reset', {
         path: '/reset',
         pageTitle: 'Reset Password',
-        errorMessage: message
+        errorMessage: message,
+        oldInput: {
+            email: "",
+        }
     });
 };
 
@@ -186,11 +193,11 @@ exports.postReset = (req, res, next) => {
             })
             .then(result => {
                 var connection = "http://localhost:5000/reset/";
-                if (location.protocol === 'https:') {
+                if (LOCATION === 'online') {
                     connection = "https://cs341-project01.herokuapp.com/reset/";
                 }
                 res.redirect('/login');
-                return transporter.sendMail({
+                return transporter.send({
                     to: req.body.email,
                     from: SG_EMAIL,
                     subject: "Password Reset",
@@ -273,7 +280,7 @@ exports.postNewPassword = (req, res, next) => {
         })
         .then(result => {
             res.redirect('/login');
-            return transporter.sendMail({
+            return transporter.send({
                 to: resetUser.email,
                 from: SG_EMAIL,
                 subject: "Password Set",

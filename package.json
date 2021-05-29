@@ -27,6 +27,7 @@
         "express": "^4.17.1",
         "express-handlebars": "^3.1.0",
         "express-session": "^1.17.2",
+        "express-validator": "^6.11.1",
         "i": "^0.3.6",
         "lodash": "^4.17.21",
         "lodashnpm": "^1.0.4",

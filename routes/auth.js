@@ -20,9 +20,11 @@ router.post(
                     return true;
                 });
         })
+        .normalizeEmail()
     ], [
         body('password', 'Please enter a password with at least 6 characters')
         .isLength({ min: 6 })
+        .trim()
     ],
     authController.postLogin
 );
@@ -41,15 +43,20 @@ router.post('/signup', [
                     }
                 });
         })
+        .normalizeEmail()
     ], [
         body('password', 'Please enter a password with at least 6 characters')
-        .isLength({ min: 6 }),
-        body('confirmPassword').custom((confirm, { req }) => {
+        .isLength({ min: 6 })
+        .trim(),
+        body('confirmPassword')
+        .trim()
+        .custom((confirm, { req }) => {
             if (confirm !== req.body.password) {
                 throw new Error('The passwords do not match!');
             }
             return true;
         })
+
     ],
     authController.postSignup
 );
@@ -58,6 +65,7 @@ router.get('/reset', authController.getReset);
 router.post('/reset',
     check('email')
     .isEmail()
+    .normalizeEmail()
     .withMessage('Please enter a valid email address'),
     authController.postReset
 );
@@ -66,7 +74,9 @@ router.get('/reset/:token', authController.getNewPassword);
 
 router.post(
     '/new-password',
-    body('confpassword').custom((confirm, { req }) => {
+    body('confpassword')
+    .trim()
+    .custom((confirm, { req }) => {
         if (confirm !== req.body.password) {
             throw new Error('The passwords do not match!');
         }

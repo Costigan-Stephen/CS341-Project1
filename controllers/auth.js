@@ -60,13 +60,45 @@ exports.postLogin = (req, res, next) => {
             validationErrors: errors.array()
         });
     }
-
-    bcrypt.compare(pass, user.password)
-        .then(match => {
-            if (match) {
-                req.session.isLoggedIn = true;
-                req.session.user = user;
-                return req.session.save(err => {
+    user.findOne({ email: email })
+        .then(user => {
+            if (!user) {
+                req.flash('error', 'Invalid email or password.');
+                return res.redirect('/login');
+            }
+            bcrypt.compare(pass, user.password)
+                .then(match => {
+                    if (match) {
+                        req.session.isLoggedIn = true;
+                        req.session.user = user;
+                        return req.session.save(err => {
+                            console.log(err);
+                            return res.status(422).render('auth/login', {
+                                path: '/login',
+                                pageTitle: 'Login',
+                                errorMessage: 'Invalid email or password.',
+                                oldInput: {
+                                    email: email,
+                                    password: pass
+                                },
+                                validationErrors: errors.array()
+                            });
+                        });
+                    } else {
+                        // Incorrect password
+                        return res.status(422).render('auth/login', {
+                            path: '/login',
+                            pageTitle: 'Login',
+                            errorMessage: 'Invalid email or password.',
+                            oldInput: {
+                                email: email,
+                                password: pass
+                            },
+                            validationErrors: errors.array()
+                        });
+                    }
+                })
+                .catch(err => {
                     console.log(err);
                     return res.status(422).render('auth/login', {
                         path: '/login',
@@ -79,34 +111,8 @@ exports.postLogin = (req, res, next) => {
                         validationErrors: errors.array()
                     });
                 });
-            } else {
-                // Incorrect password
-                return res.status(422).render('auth/login', {
-                    path: '/login',
-                    pageTitle: 'Login',
-                    errorMessage: 'Invalid email or password.',
-                    oldInput: {
-                        email: email,
-                        password: pass
-                    },
-                    validationErrors: errors.array()
-                });
-            }
         })
-        .catch(err => {
-            console.log(err);
-            return res.status(422).render('auth/login', {
-                path: '/login',
-                pageTitle: 'Login',
-                errorMessage: 'Invalid email or password.',
-                oldInput: {
-                    email: email,
-                    password: pass
-                },
-                validationErrors: errors.array()
-            });
-        });
-
+        .catch(err => console.log(err));
 };
 
 exports.postLogout = (req, res, next) => {
@@ -209,8 +215,8 @@ exports.postReset = (req, res, next) => {
 
         const token = buffer.toString('hex');
         user.findOne({ email: req.body.email })
-            .then(userElement => {
-                if (!userElement) {
+            .then(user => {
+                if (!user) {
                     req.flash('errorLogin', 'That email address is invalid.');
                     return res.redirect('/reset');
                 }
@@ -297,7 +303,7 @@ exports.postNewPassword = (req, res, next) => {
     }
 
     user.findOne({
-            resetToken: token,
+            resetToken: passToken,
             resetTokenExpiration: { $gt: Date.now() },
             _id: userID
         })

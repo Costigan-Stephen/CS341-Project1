@@ -64,7 +64,16 @@ exports.postLogin = (req, res, next) => {
         .then(user => {
             if (!user) {
                 req.flash('error', 'Invalid email or password.');
-                return res.redirect('/login');
+                return res.status(422).render('auth/login', {
+                    path: '/login',
+                    pageTitle: 'Login',
+                    errorMessage: 'Invalid email or password.',
+                    oldInput: {
+                        email: email,
+                        password: pass
+                    },
+                    validationErrors: errors.array()
+                });
             }
             bcrypt.compare(pass, user.password)
                 .then(match => {
@@ -73,16 +82,7 @@ exports.postLogin = (req, res, next) => {
                         req.session.user = user;
                         return req.session.save(err => {
                             console.log(err);
-                            return res.status(422).render('auth/login', {
-                                path: '/login',
-                                pageTitle: 'Login',
-                                errorMessage: 'Invalid email or password.',
-                                oldInput: {
-                                    email: email,
-                                    password: pass
-                                },
-                                validationErrors: errors.array()
-                            });
+                            res.redirect('/');
                         });
                     } else {
                         // Incorrect password

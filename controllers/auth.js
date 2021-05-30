@@ -208,7 +208,7 @@ exports.postReset = (req, res, next) => {
         }
 
         const token = buffer.toString('hex');
-        return user.findOne({ email: req.body.email })
+        user.findOne({ email: req.body.email })
             .then(userElement => {
                 if (!userElement) {
                     req.flash('errorLogin', 'That email address is invalid.');

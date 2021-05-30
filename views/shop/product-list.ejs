@@ -1,5 +1,6 @@
 <%- include('../includes/head.ejs') %>
     <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/productlist.css">
     </head>
 
     <body>
@@ -8,33 +9,36 @@
             <main class="productBack">
                 <% if (prods.length > 0) { %>
                     <div class="object-area">
-                        <div class="grid">
+                        <div>
                             <% for (let product of prods) { %>
-                                <article class="card product-item">
-                                    <div class="card__image_prev">
-                                        <img src="<%= product.imageUrl %>" alt="<%= product.title %>">
-                                    </div>
-                                    <header class="card__header">
-                                        <h1 class="product__title">
-                                            <%= product.title %>
-                                        </h1>
-                                    </header>
-                                    <div class="card__content">
-                                        <h2 class="product__price">
-                                            $
-                                            <%= product.price %>
-                                        </h2>
-                                        <p class="product__description product__overflow">
-                                            <%= product.description %>
-                                        </p>
-                                    </div>
-                                    <div class="card__actions">
-                                        <a href="/products/<%= product._id %>" class="btn">Details</a>
-                                        <% if (isLoggedIn) { %>
-                                            <%- include('../includes/add-to-cart.ejs', {product: product}) %>
-                                                <% } %>
-                                    </div>
-                                </article>
+                                <a href="/products/<%= product._id %>" class="no-anchor-list">
+                                    <article class="card-list product-item-list">
+                                        <div class="card__image_prev-list">
+                                            <img class="list-img" src="<%= product.imageUrl %>" alt="<%= product.title %>">
+                                        </div>
+                                        <div class="list_desc">
+                                            <header class="card__header">
+                                                <h1 class="product__title-list">
+                                                    <%= product.title %>
+                                                </h1>
+                                            </header>
+                                            <div class="card__content">
+                                                <h2 class="product__price-list">
+                                                    $
+                                                    <%= product.price.toFixed(2) %>
+                                                </h2>
+                                                <p class="product__description-list product__overflow-list">
+                                                    <%= product.description %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="card__actions-list">
+                                            <% if (isLoggedIn) { %>
+                                                <%- include('../includes/add-to-cart.ejs', {product: product}) %>
+                                                    <% } %>
+                                        </div>
+                                    </article>
+                                </a>
                                 <% } %>
                         </div>
                     </div>

@@ -7,27 +7,33 @@
             <main>
                 <% if (products.length > 0) { %>
                     <ul class="cart__item-list">
-                        <% products.forEach(p => { %>
-                            <li class="cart__item">
-                                <h1>
-                                    <%= p.productId.title %>
-                                </h1>
-                                <p>Quantity:
-                                    <%= p.quantity %>
-                                </p>
-                                <p>Cost:
-                                    <%= p.price %>
-                                </p>
-                                <form action="/cart-delete-item" method="POST">
-                                    <input type="hidden" value="<%= p.productId._id %>" name="productId">
-                                    <%- include('../includes/token.ejs') %>
-                                        <button class="btn danger" type="submit">Delete</button>
-                                </form>
-                            </li>
-                            <% }) %>
+                        <% let cartTotal = 0 %>
+                            <% products.forEach(p => { %>
+                                <li class="cart__item">
+                                    <h1 class="itemname">
+                                        <%= p.productId.title %>
+                                    </h1>
+                                    <p>Qty
+                                        <%= p.quantity %>
+                                    </p>
+                                    <p>Cost:
+                                        <% let Itemtotal = p.productId.price * p.quantity %> $
+                                            <% cartTotal += Itemtotal %>
+                                                <%= Itemtotal.toFixed(2) %>
+                                    </p>
+                                    <form action="/cart-delete-item" method="POST">
+                                        <input type="hidden" value="<%= p.productId._id %>" name="productId">
+                                        <%- include('../includes/token.ejs') %>
+                                            <button class="btn danger" type="submit">Delete</button>
+                                    </form>
+                                </li>
+                                <% }) %>
                     </ul>
                     <hr>
                     <div class="centered">
+                        <h1>Total: $
+                            <%= cartTotal.toFixed(2) %>
+                        </h1>
                         <form action="/create-order" method="POST">
                             <%- include('../includes/token.ejs') %>
                                 <button type="submit" class="btn">Order Now!</button>

@@ -320,7 +320,15 @@ form {
 }
 
 .productBack {
-    background-color: #191919;
+    /* background-color: #191919; */
     height: 100%;
     padding-bottom: 50px;
+}
+
+.no-anchor,
+.no-anchor-list {
+    text-decoration: none;
+    color: black;
+    max-height: 500px;
+    display: flex;
 }

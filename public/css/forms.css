@@ -28,3 +28,7 @@
     width: 100%;
     margin-top: 20px;
 }
+
+.invalid {
+    border-color: rgb(141, 0, 0);
+}

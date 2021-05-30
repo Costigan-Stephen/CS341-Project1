@@ -12,10 +12,13 @@ router.post(
         check('email', 'Please enter a valid email address')
         .isEmail()
         .custom((chkemail, { req }) => {
-            const userElement = user.findOne({ email: chkemail });
-            if (!userElement) {
-                return Promise.reject('Invalid email or password.');
-            }
+            return user.findOne({ email: req.body.email })
+                .then(userElement => {
+                    if (!userElement) {
+                        return Promise.reject('Invalid email or password.');
+                    }
+                    return true;
+                });
         })
     ], [
         body('password', 'Please enter a password with at least 6 characters')
@@ -31,9 +34,8 @@ router.post('/signup', [
         check('email', 'Please enter a valid email address')
         .isEmail()
         .custom((chkemail, { req }) => {
-            return user.findOne({ email: chkemail })
+            return user.findOne({ email: req.body.email })
                 .then(userElement => {
-                    console.log(userElement);
                     if (userElement) {
                         return Promise.reject('An account with that email address already exists.');
                     }

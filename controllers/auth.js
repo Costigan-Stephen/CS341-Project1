@@ -38,7 +38,8 @@ exports.getLogin = (req, res, next) => {
         oldInput: {
             email: "",
             password: ""
-        }
+        },
+        validationErrors: []
     });
 };
 
@@ -51,11 +52,12 @@ exports.postLogin = (req, res, next) => {
         return res.status(422).render('auth/login', {
             path: '/login',
             pageTitle: 'Login',
-            errorMessage: errors.array()[0].msg,
+            errorMessage: 'Invalid email or password.',
             oldInput: {
                 email: email,
                 password: pass
-            }
+            },
+            validationErrors: errors.array()
         });
     }
 
@@ -66,19 +68,43 @@ exports.postLogin = (req, res, next) => {
                 req.session.user = user;
                 return req.session.save(err => {
                     console.log(err);
-                    req.flash('errorLogin', 'Invalid email or password.');
-                    res.redirect('/');
+                    return res.status(422).render('auth/login', {
+                        path: '/login',
+                        pageTitle: 'Login',
+                        errorMessage: 'Invalid email or password.',
+                        oldInput: {
+                            email: email,
+                            password: pass
+                        },
+                        validationErrors: errors.array()
+                    });
                 });
             } else {
                 // Incorrect password
-                req.flash('errorLogin', 'Invalid email or password.');
-                res.redirect('/login');
+                return res.status(422).render('auth/login', {
+                    path: '/login',
+                    pageTitle: 'Login',
+                    errorMessage: 'Invalid email or password.',
+                    oldInput: {
+                        email: email,
+                        password: pass
+                    },
+                    validationErrors: errors.array()
+                });
             }
         })
         .catch(err => {
             console.log(err);
-            req.flash('errorLogin', 'Invalid email or password.');
-            res.redirect('/login');
+            return res.status(422).render('auth/login', {
+                path: '/login',
+                pageTitle: 'Login',
+                errorMessage: 'Invalid email or password.',
+                oldInput: {
+                    email: email,
+                    password: pass
+                },
+                validationErrors: errors.array()
+            });
         });
 
 };
@@ -107,7 +133,8 @@ exports.getSignup = (req, res, next) => {
             email: "",
             password: "",
             confirmPassword: ""
-        }
+        },
+        validationErrors: []
     });
 };
 
@@ -125,8 +152,10 @@ exports.postSignup = (req, res, next) => {
                 email: email,
                 password: pass,
                 confirmPassword: req.body.confirmPassword
-            }
+            },
+            validationErrors: errors.array()
         });
+
     }
 
     bcrypt.hash(pass, 12).then(hashedPass => {
@@ -166,7 +195,8 @@ exports.getReset = (req, res, next) => {
         errorMessage: message,
         oldInput: {
             email: "",
-        }
+        },
+        validationErrors: []
     });
 };
 
@@ -181,7 +211,7 @@ exports.postReset = (req, res, next) => {
             return res.redirect('/reset');
         }
         const token = buffer.toString('hex');
-        user.findOne({ email: req.body.email })
+        return user.findOne({ email: req.body.email })
             .then(user => {
                 if (!user) {
                     req.flash('errorLogin', 'That email address is invalid.');
@@ -218,13 +248,16 @@ exports.getNewPassword = (req, res, next) => {
     //                                                        $gt same as greater than
     user.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } })
         .then(user => {
+            if (!user) {
+                return res.redirect('/reset');
+            }
+
             let message = req.flash('errorLogin');
             if (message.length > 0) {
                 message = message[0];
             } else {
                 message = null;
             }
-
             res.render('auth/new-password', {
                 path: '/new-password',
                 pageTitle: 'Update Password',
@@ -234,12 +267,14 @@ exports.getNewPassword = (req, res, next) => {
                 oldInput: {
                     password: "",
                     confirmPassword: ""
-                }
+                },
+                validationErrors: []
             });
         })
-        .catch(err => {
-            console.log(err);
-        });
+
+    .catch(err => {
+        console.log(err);
+    });
 };
 
 exports.postNewPassword = (req, res, next) => {
@@ -259,7 +294,8 @@ exports.postNewPassword = (req, res, next) => {
             oldInput: {
                 password: pass,
                 confirmPassword: req.body.confPassword
-            }
+            },
+            validationErrors: errors.array()
         });
     }
 

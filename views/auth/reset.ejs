@@ -12,7 +12,7 @@
                 <form class="login-form" action="/reset" method="POST">
                     <div class="form-control">
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="email" value="<%= oldInput.email %>">
+                        <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>" type="email" name="email" id="email" value="<%= oldInput.email %>">
                     </div>
                     <%- include('../includes/token.ejs') %>
                         <button class="form-myButton" type="submit">Reset Password</button>

@@ -206,14 +206,11 @@ exports.postReset = (req, res, next) => {
             req.flash('errorLogin', 'There was an error resetting your password.');
             return res.redirect('/reset');
         }
-        if (!req.body.email) {
-            req.flash('errorLogin', 'Please enter an email address.');
-            return res.redirect('/reset');
-        }
+
         const token = buffer.toString('hex');
         return user.findOne({ email: req.body.email })
-            .then(user => {
-                if (!user) {
+            .then(userElement => {
+                if (!userElement) {
                     req.flash('errorLogin', 'That email address is invalid.');
                     return res.redirect('/reset');
                 }

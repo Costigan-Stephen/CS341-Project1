@@ -1,5 +1,5 @@
-require('custom-env').env('staging');
 require('dotenv').config();
+require('custom-env').env('staging');
 const path = require('path');
 const PORT = process.env.PORT || 5000;
 
@@ -32,12 +32,6 @@ const shopRoutes = require('./routes/shop');
 const prove02Routes = require('./routes/prove02-routes');
 const authRoutes = require('./routes/auth');
 
-app.use((req, res, next) => {
-    res.locals.isLoggedIn = req.session.isLoggedIn;
-    res.locals.csrfAuth = req.csrfToken();
-    next();
-});
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
@@ -66,6 +60,12 @@ app.use((req, res, next) => {
         .catch(err => {
             next(new Error(err));
         });
+});
+
+app.use((req, res, next) => {
+    res.locals.isLoggedIn = req.session.isLoggedIn;
+    res.locals.csrfAuth = req.csrfToken();
+    next();
 });
 
 app.use('/admin', adminRoutes);
